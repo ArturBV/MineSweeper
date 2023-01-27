@@ -1,2 +1,2 @@
 3. Кнопки поля имеет состояния: неоткрыто\открыто, пусто\с миной, можно открыть\помечено
-4.
+4. Использовать QVBoxLayout и QHBoxLayout: https://www.pythonguis.com/tutorials/pyqt-layouts/#:~:text=pagelayout%20%3D%20QVBoxLayout()%0A%20%20%20%20%20%20%20%20button_layout%20%3D%20QHBoxLayout()
