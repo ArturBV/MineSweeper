@@ -25,16 +25,16 @@ class Field(QWidget):
     def initUI(self):
         self.resize(*start_resolution)
 
-        self.gamefield_layout = QGridLayout()
+        self.gamefield_layout = QHBoxLayout()
         self.info_layout = QHBoxLayout()
-        pagelayout = QVBoxLayout()
+        self.pagelayout = QVBoxLayout()
         
-        pagelayout.addLayout(self.info_layout)
-        pagelayout.addLayout(self.gamefield_layout)
+        self.pagelayout.addLayout(self.info_layout)
+        self.pagelayout.addLayout(self.gamefield_layout)
         
         self.set_info_layout()
         self.set_gamelayout()
-        self.setLayout(pagelayout)
+        self.setLayout(self.pagelayout)
 
         self.center_window()
         self.setWindowTitle("MineSweeper by ArturBV")
@@ -50,12 +50,19 @@ class Field(QWidget):
     def set_gamelayout(self):
         # 3 for counter, smile and timer(?)
 
-        btn_positions = [(i, j) for i in range(self.field.size) for j in range(self.field.size)]
-        btn_widgets = [QPushButton(f"{i}", self) for i in range(self.field.size * self.field.size)]
-        for btn, pos in zip(btn_widgets, btn_positions):
-            btn.setMinimumSize(start_resolution[1] // self.field.size, start_resolution[1] // self.field.size)
-            # btn.setMaximumSize(start_resolution[1] // self.field.size, start_resolution[1] // self.field.size)
-            self.gamefield_layout.addWidget(btn, *pos)
+        # btn_positions = [(i, j) for i in range(self.field.size) for j in range(self.field.size)]
+        btn_widgets = [[QPushButton(f"{i}", self) for i in range(self.field.size)] for j in range(self.field.size)]
+        for btn_row in btn_widgets:
+            row = QHBoxLayout()
+            for btn in btn_row:
+                # btn.setMinimumSize(start_resolution[1] // self.field.size, start_resolution[1] // self.field.size)
+                row.addStretch()
+                row.addWidget(btn)
+                row.addStretch()
+            self.pagelayout.addStretch()
+            self.pagelayout.addLayout(row)
+            self.pagelayout.addStretch()
+            # self.gamefield_layout.addWidget(btn, *pos)
 
     def center_window(self):
         w_frame = self.frameGeometry()
